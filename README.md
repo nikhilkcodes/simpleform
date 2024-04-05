@@ -1,36 +1,42 @@
-Clone the Repository:
+### Prerequisites
+- Node.js installed on your system. You can download it from [here](https://nodejs.org/).
 
-bash
-Copy code
-git clone https://github.com/nikhilkcodes/simpleform.git
-Navigate to the Project Directory:
+### Getting Started
 
-bash
-Copy code
-cd simpleform
-Open the Frontend:
+1. **Clone the Repository:**
 
-Open index.html in your preferred web browser to access the frontend of the application.
+    ```bash
+    git clone https://github.com/nikhilkcodes/simpleform.git
+    ```
 
-Install Backend Dependencies:
+2. **Navigate to the Project Directory:**
 
-Navigate to the backend directory:
+    ```bash
+    cd simpleform-master
+    ```
 
-bash
-Copy code
-cd backend/node
-Install the dependencies:
+3. **Open the Frontend:**
 
-bash
-Copy code
-npm install
-Run the Backend Server:
+    Open `index.html` in your preferred web browser to access the frontend of the application.
 
-bash
-Copy code
-node index.js
-This command will start the backend server.
+4. **Install Backend Dependencies:**
 
-Access the Application:
+    Navigate to the backend directory:
 
-the server will run on your terminal localhost:3000
+    ```bash
+    cd backend/node
+    ```
+
+    Install the dependencies:
+
+    ```bash
+    npm install
+    ```
+
+5. **Run the Backend Server:**
+
+    ```bash
+    node index.js
+    ```
+
+    This command will start the backend server. on your terminal localhost:3000
