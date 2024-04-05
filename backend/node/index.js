@@ -1,37 +1,53 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
-const cors = require('cors');
-const { v4: uuidv4 } = require('uuid'); // Import uuidv4 from uuid library
+const { v4: uuidv4 } = require('uuid');
+const cors = require('cors'); // Import cors middleware
+
 const app = express();
+const port = 3000;
 
+// Middleware
 app.use(bodyParser.json());
-app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors()); // Enable CORS for all routes
 
-app.post('/submit-form', (req, res) => {
+// Endpoint to handle form submission
+app.post('/submit', (req, res) => {
+  // Extract form data from request body
   const formData = req.body;
 
-  // Generate unique identifiers
-  const uniqueDeviceNumber = uuidv4();
-  const uniqueIdNumber = uuidv4();
+  // Generate unique device ID and unique ID number
+  const uniqueDeviceID = uuidv4();
+  const uniqueIDNumber = uuidv4();
 
-  // Add unique identifiers to form data
-  formData.uniqueDeviceNumber = uniqueDeviceNumber;
-  formData.uniqueIdNumber = uniqueIdNumber;
+  // Add unique IDs to formData
+  formData.uniqueDeviceID = uniqueDeviceID;
+  formData.uniqueIDNumber = uniqueIDNumber;
 
-  // Log the form data to a file
-  fs.appendFile('form-logs.txt', JSON.stringify(formData) + '\n', (err) => {
-    if (err) {
-      console.error('Error writing to log file:', err);
-      res.status(500).send('Error logging form data');
-    } else {
-      console.log('Form data logged successfully');
-      res.status(200).send('Form data logged successfully');
-    }
+  // Log the form data along with unique IDs
+  logFormData(formData);
+
+  // Send response
+  res.status(200).json({
+    userID: uniqueIDNumber,
+    uniqueDeviceID: uniqueDeviceID
   });
 });
 
-app.listen(3001, () => {
-  console.log('Server is running on port 3001');
-});
+// Function to log form data
+function logFormData(formData) {
+  const logData = `${new Date().toISOString()} - ${JSON.stringify(formData)}\n`;
+  fs.appendFile('form_logs.txt', logData, (err) => {
+    if (err) {
+      console.error('Error logging form data:', err);
+    } else {
+      console.log('Form data logged successfully');
+    }
+  });
+}
 
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is listening at http://localhost:${port}`);
+});
